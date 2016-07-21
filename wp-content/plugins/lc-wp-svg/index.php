@@ -6,6 +6,8 @@ Description: Super PHP Plugin to add Full SVG Media support to WordPress, I shou
 Author: Lewis Cowles
 Version: 1.5.2
 Author URI: http://www.lewiscowles.co.uk/
+GitHub Plugin URI: Lewiscowles1986/WordPressSVGPlugin
+
 */
 namespace lewiscowles\WordPress\Compat\FileTypes;
 
@@ -19,16 +21,18 @@ class SVGSupport {
 		add_action( 'after_setup_theme', [ $this, 'theme_prefix_setup' ], 99 );
 	}
 	public function theme_prefix_setup() {
-		$existing = current( get_theme_support( 'custom-logo' ) );
-		$existing['flex-width'] = true;
-		$existing['flex-height'] = true;
-		add_theme_support( 'custom-logo', $existing );
+		$existing = get_theme_support( 'custom-logo' );
+		if ( $existing ) {
+			$existing = current( $existing );
+			$existing['flex-width'] = true;
+			$existing['flex-height'] = true;
+			add_theme_support( 'custom-logo', $existing );
+		}
 	}
 	public function add_svg_upload() {
 		ob_start();
 		add_action( 'wp_ajax_adminlc_mce_svg.css', [ $this, 'tinyMCE_svg_css' ] );
 		add_filter( 'image_send_to_editor', [ $this, 'remove_dimensions_svg' ], 10 );
-		
 		add_filter( 'upload_mimes', [ $this, 'filter_mimes' ] );
 		add_action( 'shutdown', [ $this, 'on_shutdown' ], 0 );
 		add_filter( 'final_output', [ $this, 'fix_template' ] );
@@ -47,7 +51,7 @@ class SVGSupport {
 	public function remove_dimensions_svg( $html = '' ) {
 		return str_ireplace( [ " width=\"1\"", " height=\"1\"" ], "", $html );
 	}
-	
+
 	public function tinyMCE_svg_css() {
 		header( 'Content-type: text/css' );
 		echo 'img[src$=".svg"] { width: 100%; height: auto; }';
