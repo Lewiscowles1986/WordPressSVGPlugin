@@ -15,6 +15,7 @@ class SVGSupport {
 
 	function __construct() {
 		add_action( 'admin_init', [ $this, 'add_svg_upload' ] );
+		add_action( 'admin_head', [ $this, 'custom_admin_css' ] );
 		add_action( 'load-post.php', [ $this, 'add_editor_styles' ] );
 		add_action( 'load-post-new.php', [ $this, 'add_editor_styles' ] );
 		// forced crop STFU
@@ -52,9 +53,19 @@ class SVGSupport {
 		return str_ireplace( [ " width=\"1\"", " height=\"1\"" ], "", $html );
 	}
 
+	public function custom_css() {
+		echo 'img[src$=".svg"] { width: 100% !important; height: auto !important; }';
+	}
+
+	public function custom_admin_css() {
+		echo '<style>';
+		$this->custom_css();
+		echo '</style>';
+	}
+	
 	public function tinyMCE_svg_css() {
 		header( 'Content-type: text/css' );
-		echo 'img[src$=".svg"] { width: 100%; height: auto; }';
+		$this->custom_css();
 		exit();
 	}
 
@@ -73,20 +84,32 @@ class SVGSupport {
 	}
 
 	public function fix_template( $content = '' ) {
+		// Attachment window
 		$content = str_replace(
 			'<# } else if ( \'image\' === data.type && data.sizes && data.sizes.full ) { #>',
 			'<# } else if ( \'svg+xml\' === data.subtype ) { #>
-				<img class="details-image" src="{{ data.url }}" draggable="false" />
+				<img class="details-image cd2-svg" src="{{ data.url }}" draggable="false" alt="" />
 			<# } else if ( \'image\' === data.type && data.sizes && data.sizes.full ) { #>',
 			$content
 		);
+		
+		// Grid View
 		$content = str_replace(
 			'<# } else if ( \'image\' === data.type && data.sizes ) { #>',
 			'<# } else if ( \'svg+xml\' === data.subtype ) { #>
 				<div class="centered">
-					<img src="{{ data.url }}" class="thumbnail" draggable="false" />
+					<img src="{{ data.url }}" class="thumbnail cd2-svg" draggable="false" alt="" />
 				</div>
 			<# } else if ( \'image\' === data.type && data.sizes ) { #>',
+			$content
+		);
+		
+		// Attachment View (4.7)
+		$content = str_replace(
+			'<# } else if ( data.sizes && data.sizes.full ) { #>',
+			'<# } else if ( \'svg+xml\' === data.subtype ) { #>
+				<img class="details-image cd2-svg" src="{{ data.url }}" draggable="false" alt="" />
+			<# } else if ( data.sizes && data.sizes.full ) { #>',
 			$content
 		);
 		return $content;
