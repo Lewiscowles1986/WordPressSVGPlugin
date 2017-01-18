@@ -70,7 +70,7 @@ class SVGSupport {
 	}
 
 	public function filter_mimes( $mimes = [] ){
-		$mimes[ 'svg' ] = 'image/svg+xml';
+		$mimes[ 'svg' ] = 'application/svg+xml';
 		return $mimes;
 	}
 
