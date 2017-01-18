@@ -20,6 +20,7 @@ class SVGSupport {
 		add_action( 'load-post-new.php', [ $this, 'add_editor_styles' ] );
 		// forced crop STFU
 		add_action( 'after_setup_theme', [ $this, 'theme_prefix_setup' ], 99 );
+		add_filter( 'wp_check_filetype_and_ext', [ $this, 'fix_mime_type_svg' ] );
 	}
 	public function theme_prefix_setup() {
 		$existing = get_theme_support( 'custom-logo' );
@@ -73,6 +74,15 @@ class SVGSupport {
 		$mimes[ 'svg' ] = 'application/svg+xml';
 		return $mimes;
 	}
+	
+	public function fix_mime_type_svg($data=null, $file=null, $filename=null, $mimes=null) {
+            if(isset($data['ext'])) {
+                if($data['ext'] === 'svg') {
+                    $data['type'] = 'image/svg+xml';
+                }
+            }
+            return $data;
+        }
 
 	public function on_shutdown() {
 		$final = '';
