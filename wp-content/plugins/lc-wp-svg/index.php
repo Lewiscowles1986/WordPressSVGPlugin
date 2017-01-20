@@ -4,7 +4,7 @@ Plugin Name: SVG Upload
 Plugin URI: http://www.lewiscowles.co.uk
 Description: Super PHP Plugin to add Full SVG Media support to WordPress, I should live in {$webroot}/wp-content/plugins/ folder ;)
 Author: Lewis Cowles
-Version: 1.5.2
+Version: 1.6.3
 Author URI: http://www.lewiscowles.co.uk/
 GitHub Plugin URI: Lewiscowles1986/WordPressSVGPlugin
 
@@ -14,14 +14,15 @@ namespace lewiscowles\WordPress\Compat\FileTypes;
 class SVGSupport {
 
 	function __construct() {
-		add_action( 'admin_init', [ $this, 'add_svg_upload' ] );
-		add_action( 'admin_head', [ $this, 'custom_admin_css' ] );
-		add_action( 'load-post.php', [ $this, 'add_editor_styles' ] );
-		add_action( 'load-post-new.php', [ $this, 'add_editor_styles' ] );
+		add_action( 'admin_init', [ $this, 'add_svg_upload' ], 75 );
+		add_action( 'admin_head', [ $this, 'custom_admin_css' ], 75 );
+		add_action( 'load-post.php', [ $this, 'add_editor_styles' ], 75 );
+		add_action( 'load-post-new.php', [ $this, 'add_editor_styles' ], 75 );
 		// forced crop STFU
-		add_action( 'after_setup_theme', [ $this, 'theme_prefix_setup' ], 99 );
-		add_filter( 'wp_check_filetype_and_ext', [ $this, 'fix_mime_type_svg' ] );
+		add_action( 'after_setup_theme', [ $this, 'theme_prefix_setup' ], 75 );
+		add_filter( 'wp_check_filetype_and_ext', [ $this, 'fix_mime_type_svg' ], 75, 4 );
 	}
+
 	public function theme_prefix_setup() {
 		$existing = get_theme_support( 'custom-logo' );
 		if ( $existing ) {
@@ -31,13 +32,14 @@ class SVGSupport {
 			add_theme_support( 'custom-logo', $existing );
 		}
 	}
+
 	public function add_svg_upload() {
 		ob_start();
-		add_action( 'wp_ajax_adminlc_mce_svg.css', [ $this, 'tinyMCE_svg_css' ] );
-		add_filter( 'image_send_to_editor', [ $this, 'remove_dimensions_svg' ], 10 );
-		add_filter( 'upload_mimes', [ $this, 'filter_mimes' ] );
+		add_action( 'wp_ajax_adminlc_mce_svg.css', [ $this, 'tinyMCE_svg_css' ], 10 );
+		add_filter( 'image_send_to_editor', [ $this, 'remove_dimensions_svg' ], 10, 1 );
+		add_filter( 'upload_mimes', [ $this, 'filter_mimes' ], 10, 1 );
 		add_action( 'shutdown', [ $this, 'on_shutdown' ], 0 );
-		add_filter( 'final_output', [ $this, 'fix_template' ] );
+		add_filter( 'final_output', [ $this, 'fix_template' ], 99, 1 );
 	}
 
 	public function add_editor_styles() {
@@ -63,7 +65,7 @@ class SVGSupport {
 		$this->custom_css();
 		echo '</style>';
 	}
-	
+
 	public function tinyMCE_svg_css() {
 		header( 'Content-type: text/css' );
 		$this->custom_css();
@@ -76,13 +78,13 @@ class SVGSupport {
 	}
 	
 	public function fix_mime_type_svg($data=null, $file=null, $filename=null, $mimes=null) {
-            if(isset($data['ext'])) {
-                if($data['ext'] === 'svg') {
-                    $data['type'] = 'image/svg+xml';
-                }
-            }
-            return $data;
-        }
+		if(isset($data['ext'])) {
+			if($data['ext'] === 'svg') {
+				$data['type'] = 'image/svg+xml';
+			}
+		}
+		return $data;
+	}
 
 	public function on_shutdown() {
 		$final = '';
