@@ -73,15 +73,18 @@ class SVGSupport {
 	}
 
 	public function filter_mimes( $mimes = [] ){
-		$mimes[ 'svg' ] = 'application/svg+xml';
+		$mimes[ 'svg' ] = 'image/svg+xml';
 		return $mimes;
 	}
 	
 	public function fix_mime_type_svg($data=null, $file=null, $filename=null, $mimes=null) {
-		if(isset($data['ext'])) {
-			if($data['ext'] === 'svg') {
-				$data['type'] = 'image/svg+xml';
-			}
+		$ext = isset($data['ext']) ? $data['ext'] : '';
+		if(strlen($ext) < 1) {
+			$ext = strtolower(end(explode('.', $filename)));
+		}
+		if($ext === 'svg') {
+			$data['type'] = 'image/svg+xml';
+			$data['ext'] = 'svg';
 		}
 		return $data;
 	}
