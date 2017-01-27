@@ -4,7 +4,7 @@ Plugin Name: SVG Upload
 Plugin URI: http://www.lewiscowles.co.uk
 Description: Super PHP Plugin to add Full SVG Media support to WordPress, I should live in {$webroot}/wp-content/plugins/ folder ;)
 Author: Lewis Cowles
-Version: 1.6.3
+Version: 1.6.4
 Author URI: http://www.lewiscowles.co.uk/
 GitHub Plugin URI: Lewiscowles1986/WordPressSVGPlugin
 
