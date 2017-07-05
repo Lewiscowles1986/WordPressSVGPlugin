@@ -48,7 +48,7 @@ class SVGSupport {
 
 	public function filter_mce_css( $mce_css ) {
 		global $current_screen;
-		$mce_css .= ', ' . admin_url('admin-ajax.php?action=adminlc_mce_svg.css');
+		$mce_css .= ', ' . get_admin_url('admin-ajax.php?action=adminlc_mce_svg.css');
 		return $mce_css;
 	}
 
