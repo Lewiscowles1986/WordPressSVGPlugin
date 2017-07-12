@@ -57,7 +57,7 @@ class SVGSupport {
 	}
 
 	public function custom_css() {
-		echo 'img[src$=".svg"] { width: 100% !important; height: auto !important; }';
+		echo 'img[src$=".svg"]:not(.emoji) { width: 100% !important; height: auto !important; }';
 	}
 
 	public function custom_admin_css() {
