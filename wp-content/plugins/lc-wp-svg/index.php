@@ -76,7 +76,7 @@ class SVGSupport {
 		$mimes[ 'svg' ] = 'image/svg+xml';
 		return $mimes;
 	}
-	
+
 	public function fix_mime_type_svg($data=null, $file=null, $filename=null, $mimes=null) {
 		$ext = isset($data['ext']) ? $data['ext'] : '';
 		if(strlen($ext) < 1) {
@@ -107,7 +107,7 @@ class SVGSupport {
 			<# } else if ( \'image\' === data.type && data.sizes && data.sizes.full ) { #>',
 			$content
 		);
-		
+
 		// Grid View
 		$content = str_replace(
 			'<# } else if ( \'image\' === data.type && data.sizes ) { #>',
@@ -118,7 +118,7 @@ class SVGSupport {
 			<# } else if ( \'image\' === data.type && data.sizes ) { #>',
 			$content
 		);
-		
+
 		// Attachment View (4.7)
 		$content = str_replace(
 			'<# } else if ( data.sizes && data.sizes.full ) { #>',
