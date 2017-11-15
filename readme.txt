@@ -4,7 +4,7 @@ Tags: svg,upload,media library,mime
 Requires at least: 4.0
 Tested up to: 4.9
 Requires PHP: 5.6
-Stable tag: 1.8.0
+Stable tag: 1.8.1
 License: GPL-3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -25,6 +25,9 @@ Automatic updates are currently supported via [GitHub Updater](https://github.co
 Download and extract the zip file or clone this repo to your WordPress plugins directory.
 
 == Changelog ==
+= 1.8.1 =
+* Version Release & Enhancements from hendridm
+
 = 1.8.0 =
 * Altered Directory Structure for GitHub plugin updater compatibility
 
