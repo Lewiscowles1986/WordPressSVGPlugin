@@ -18,7 +18,6 @@ class SVGSupport {
 		add_action( 'admin_head', [ $this, 'custom_admin_css' ], 75 );
 		add_action( 'load-post.php', [ $this, 'add_editor_styles' ], 75 );
 		add_action( 'load-post-new.php', [ $this, 'add_editor_styles' ], 75 );
-		// forced crop STFU
 		add_action( 'after_setup_theme', [ $this, 'theme_prefix_setup' ], 75 );
 		add_filter( 'wp_check_filetype_and_ext', [ $this, 'fix_mime_type_svg' ], 75, 4 );
 	}
@@ -48,7 +47,7 @@ class SVGSupport {
 
 	public function filter_mce_css( $mce_css ) {
 		global $current_screen;
-		$mce_css .= ', ' . get_admin_url('admin-ajax.php?action=adminlc_mce_svg.css');
+		$mce_css .= ', ' . get_admin_url( 'admin-ajax.php?action=adminlc_mce_svg.css' );
 		return $mce_css;
 	}
 
@@ -76,13 +75,13 @@ class SVGSupport {
 		$mimes[ 'svg' ] = 'image/svg+xml';
 		return $mimes;
 	}
-	
-	public function fix_mime_type_svg($data=null, $file=null, $filename=null, $mimes=null) {
-		$ext = isset($data['ext']) ? $data['ext'] : '';
-		if(strlen($ext) < 1) {
-			$ext = strtolower(end(explode('.', $filename)));
+
+	public function fix_mime_type_svg( $data=null, $file=null, $filename=null, $mimes=null ) {
+		$ext = isset( $data['ext'] ) ? $data['ext'] : '';
+		if( strlen($ext) < 1 ) {
+			$ext = strtolower( end( explode('.', $filename) ) );
 		}
-		if($ext === 'svg') {
+		if( $ext === 'svg' ) {
 			$data['type'] = 'image/svg+xml';
 			$data['ext'] = 'svg';
 		}
@@ -107,7 +106,7 @@ class SVGSupport {
 			<# } else if ( \'image\' === data.type && data.sizes && data.sizes.full ) { #>',
 			$content
 		);
-		
+
 		// Grid View
 		$content = str_replace(
 			'<# } else if ( \'image\' === data.type && data.sizes ) { #>',
@@ -118,7 +117,7 @@ class SVGSupport {
 			<# } else if ( \'image\' === data.type && data.sizes ) { #>',
 			$content
 		);
-		
+
 		// Attachment View (4.7)
 		$content = str_replace(
 			'<# } else if ( data.sizes && data.sizes.full ) { #>',
@@ -130,7 +129,9 @@ class SVGSupport {
 		return $content;
 	}
 }
+
 new SVGSupport();
+
 /*
  * Logic Breakdown
  * 1) We need the whole page, but only if we are in the backend (hence admin_init hook)
