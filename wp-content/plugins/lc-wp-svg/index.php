@@ -3,10 +3,10 @@
  * @wordpress-plugin
  * Plugin Name:       Enable SVG Uploads
  * Plugin URI:        https://github.com/Lewiscowles1986/WordPressSVGPlugin
- * Description:       Enable SVG uploads in Media Library and from other media fields.
+ * Description:       Enable SVG uploads in Media Library and other file upload fields.
  * Version:           1.6.4
  * Author:            Lewis Cowles
- * Author URI:        http://www.lewiscowles.co.uk/
+ * Author URI:        https://www.lewiscowles.co.uk/
  * License:           GPL-3.0
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.html
  * GitHub Plugin URI: Lewiscowles1986/WordPressSVGPlugin
