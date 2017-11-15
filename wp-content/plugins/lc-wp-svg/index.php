@@ -18,7 +18,6 @@ class SVGSupport {
 		add_action( 'admin_head', [ $this, 'custom_admin_css' ], 75 );
 		add_action( 'load-post.php', [ $this, 'add_editor_styles' ], 75 );
 		add_action( 'load-post-new.php', [ $this, 'add_editor_styles' ], 75 );
-		// forced crop STFU
 		add_action( 'after_setup_theme', [ $this, 'theme_prefix_setup' ], 75 );
 		add_filter( 'wp_check_filetype_and_ext', [ $this, 'fix_mime_type_svg' ], 75, 4 );
 	}
@@ -131,21 +130,4 @@ class SVGSupport {
 	}
 }
 new SVGSupport();
-/*
- * Logic Breakdown
- * 1) We need the whole page, but only if we are in the backend (hence admin_init hook)
- * 2) We would like to grab all output (ob_start within admin_init as nothing should echo before that, we should not interfere with things that do)
- * 3) We want to grab the content on shutdown, concatenate all output buffers, then filter
- * 4) Search for placeholders which should exist and replace the text
- * Downsides
- * 1) Not permanent fix (for perma fix WP core would need to be editable or native filtering added)
- * 2) A bit resource munchy (it's locked to the admin side, so IMHO who cares)
- * 3) This is just to get SVG into WP core... Luckily the find replace is that simple in /wp-includes/media-template.php (Patch it Mullweng & Co!)
- *
- * Changes...
- * Re-factored function declaration and calls to make compatible with lesser PHP versions, despite believing anyone using such versions is dangerous
- * Added param for mime-types to filter_mimes function
- * Moved into a namespace and class to make the whole thing less hack-and-slash
- * Updated to use short-array syntax (Breaking change update your PHP or don't use)
- * Deleted some dead code I never noticed before
- */
+
