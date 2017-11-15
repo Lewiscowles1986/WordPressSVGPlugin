@@ -1,14 +1,16 @@
 <?php
-/*
-Plugin Name: SVG Upload
-Plugin URI: http://www.lewiscowles.co.uk
-Description: Super PHP Plugin to add Full SVG Media support to WordPress, I should live in {$webroot}/wp-content/plugins/ folder ;)
-Author: Lewis Cowles
-Version: 1.8.0
-Author URI: http://www.lewiscowles.co.uk/
-GitHub Plugin URI: Lewiscowles1986/WordPressSVGPlugin
-
-*/
+/**
+ * @wordpress-plugin
+ * Plugin Name:       Enable SVG Uploads
+ * Plugin URI:        https://github.com/Lewiscowles1986/WordPressSVGPlugin
+ * Description:       Enable SVG uploads in Media Library and other file upload fields.
+ * Version:           1.8.0
+ * Author:            Lewis Cowles
+ * Author URI:        https://www.lewiscowles.co.uk/
+ * License:           GPL-3.0
+ * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
+ * GitHub Plugin URI: Lewiscowles1986/WordPressSVGPlugin
+ */
 namespace lewiscowles\WordPress\Compat\FileTypes;
 
 class SVGSupport {
@@ -47,7 +49,7 @@ class SVGSupport {
 
 	public function filter_mce_css( $mce_css ) {
 		global $current_screen;
-		$mce_css .= ', ' . get_admin_url('admin-ajax.php?action=adminlc_mce_svg.css');
+		$mce_css .= ', ' . get_admin_url( 'admin-ajax.php?action=adminlc_mce_svg.css' );
 		return $mce_css;
 	}
 
@@ -75,13 +77,13 @@ class SVGSupport {
 		$mimes[ 'svg' ] = 'image/svg+xml';
 		return $mimes;
 	}
-	
-	public function fix_mime_type_svg($data=null, $file=null, $filename=null, $mimes=null) {
-		$ext = isset($data['ext']) ? $data['ext'] : '';
-		if(strlen($ext) < 1) {
-			$ext = strtolower(end(explode('.', $filename)));
+
+	public function fix_mime_type_svg( $data=null, $file=null, $filename=null, $mimes=null ) {
+		$ext = isset( $data['ext'] ) ? $data['ext'] : '';
+		if( strlen($ext) < 1 ) {
+			$ext = strtolower( end( explode('.', $filename) ) );
 		}
-		if($ext === 'svg') {
+		if( $ext === 'svg' ) {
 			$data['type'] = 'image/svg+xml';
 			$data['ext'] = 'svg';
 		}
@@ -106,7 +108,7 @@ class SVGSupport {
 			<# } else if ( \'image\' === data.type && data.sizes && data.sizes.full ) { #>',
 			$content
 		);
-		
+
 		// Grid View
 		$content = str_replace(
 			'<# } else if ( \'image\' === data.type && data.sizes ) { #>',
@@ -117,7 +119,7 @@ class SVGSupport {
 			<# } else if ( \'image\' === data.type && data.sizes ) { #>',
 			$content
 		);
-		
+
 		// Attachment View (4.7)
 		$content = str_replace(
 			'<# } else if ( data.sizes && data.sizes.full ) { #>',
@@ -130,4 +132,3 @@ class SVGSupport {
 	}
 }
 new SVGSupport();
-
