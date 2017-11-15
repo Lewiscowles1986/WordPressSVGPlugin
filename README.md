@@ -17,7 +17,7 @@ Download and extract the zip file or clone this repo to your WordPress plugins d
 
 ### Updates
 
-Automatical updates are supported via [GitHub Updater](https://github.com/afragen/github-updater).
+Automatic updates are supported via [GitHub Updater](https://github.com/afragen/github-updater).
 
 ## Feedback
 
