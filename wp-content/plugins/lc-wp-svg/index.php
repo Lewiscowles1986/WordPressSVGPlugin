@@ -1,14 +1,16 @@
 <?php
-/*
-Plugin Name: SVG Upload
-Plugin URI: http://www.lewiscowles.co.uk
-Description: Super PHP Plugin to add Full SVG Media support to WordPress, I should live in {$webroot}/wp-content/plugins/ folder ;)
-Author: Lewis Cowles
-Version: 1.6.4
-Author URI: http://www.lewiscowles.co.uk/
-GitHub Plugin URI: Lewiscowles1986/WordPressSVGPlugin
-
-*/
+/**
+ * @wordpress-plugin
+ * Plugin Name:       Enable SVG Uploads
+ * Plugin URI:        https://github.com/Lewiscowles1986/WordPressSVGPlugin
+ * Description:       Enable SVG uploads in Media Library and from other media fields.
+ * Version:           1.6.4
+ * Author:            Lewis Cowles
+ * Author URI:        http://www.lewiscowles.co.uk/
+ * License:           GPL-3.0
+ * License URI:       http://www.gnu.org/licenses/gpl-2.0.html
+ * GitHub Plugin URI: Lewiscowles1986/WordPressSVGPlugin
+ */
 namespace lewiscowles\WordPress\Compat\FileTypes;
 
 class SVGSupport {
