@@ -2,7 +2,7 @@
   "name": "lewiscowles1986/lc-enable-svg",
   "type": "wordpress-plugin",
   "description": "A small WordPress plugin to enable SVG uploads in Media Library and other file upload fields.",
-  "version": "1.8.4",
+  "version": "1.9.1",
   "license": "GPL-3.0",
   "homepage": "https://github.com/Lewiscowles1986/WordPressSVGPlugin",
   "authors": [

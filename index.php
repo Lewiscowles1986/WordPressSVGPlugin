@@ -4,7 +4,7 @@
  * Plugin Name:       Enable SVG Uploads
  * Plugin URI:        https://github.com/Lewiscowles1986/WordPressSVGPlugin
  * Description:       Enable SVG uploads in Media Library and other file upload fields.
- * Version:           1.8.4
+ * Version:           1.9.1
  * Author:            Lewis Cowles
  * Author URI:        https://www.lewiscowles.co.uk/
  * License:           GPL-3.0
@@ -27,6 +27,7 @@ class SVGSupport {
 		add_action( 'load-post-new.php', [ $this, 'add_editor_styles' ], 75 );
 		add_action( 'after_setup_theme', [ $this, 'theme_prefix_setup' ], 75 );
 		add_filter( 'wp_check_filetype_and_ext', [ $this, 'fix_mime_type_svg' ], 75, 4 );
+		add_filter( 'wp_update_attachment_metadata', [ $this, 'ensure_svg_metadata' ], 10, 2 );
 	}
 
 	public function theme_prefix_setup() {
@@ -132,6 +133,43 @@ class SVGSupport {
 			$content
 		);
 		return $content;
+	}
+
+	public function ensure_svg_metadata( $data, $id ) {
+		$attachment = get_post( $id );
+		$mime_type = $attachment->post_mime_type;
+
+		if ( $mime_type == 'image/svg+xml' ) {
+			if( $this->missingOrInvalidSVGDimensions( $data ) ) {
+				$xml = simplexml_load_file( wp_get_attachment_url( $id ) );
+				$attr = $xml->attributes();
+				$viewbox = explode( ' ', $attr->viewBox );
+
+				$this->fillSVGDimensions( $viewbox, $attr, $data, 'width', 2 );
+				$this->fillSVGDimensions( $viewbox, $attr, $data, 'height', 3 );
+			}
+		}
+		return $data;
+	}
+
+	protected function missingOrInvalidSVGDimensions( $data ) {
+		return (
+			empty( $data ) || empty( $data['width'] ) || empty( $data['height'] )
+			||
+			intval($data['width'] < 1) || intval($data['height'] < 1)
+		);
+	}
+
+	protected function fillSVGDimensions( $viewbox, $attr, &$data, $dimension, $viewboxoffset ) {
+		if ( isset( $attr->{ $dimension } ) ) {
+			$data[ $dimension ] = intval( $attr->{ $dimension } );
+		}
+		if ( is_nan( $data[ $dimension ] ) || !isset( $data[ $dimension ] ) ) {
+			$data[ $dimension ] = 0;
+		}
+		if ( $data[ $dimension ] < 1 ) {
+			$data[ $dimension ] = count($viewbox) == 4 ? intval( $viewbox[$viewboxoffset] ) : null;
+		}
 	}
 }
 new SVGSupport();
