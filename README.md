@@ -10,6 +10,8 @@ This plugin enables SVG uploads in WordPress Media Library with very little over
 
 Download and extract the zip file or clone this repo to your WordPress plugins directory.
 
+After an upgrade to 2.x it may be necessary to download and re-upload your SVG media files so that the grid works. This is because we now use simple XML to retrieve the width & height of the SVG.
+
 ### Requirements
 
 * WordPress 4.0 or higher
