@@ -2,9 +2,9 @@
 Contributors: LewisCowles,hendridm
 Tags: svg,upload,media library,mime
 Requires at least: 4.0
-Tested up to: 4.9.7
+Tested up to: 5.4.2
 Requires PHP: 7.0
-Stable tag: 2.0.0
+Stable tag: 2.0.2
 License: GPL-3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -27,6 +27,9 @@ Download and extract the zip file or clone this repo to your WordPress plugins d
 After an upgrade to 2.x it may be necessary to download and re-upload your SVG media files so that the grid works. This is because we now use simple XML to retrieve the width & height of the SVG.
 
 == Changelog ==
+= 2.0.2 =
+* Modified CSS added (we now get CSS size from correctly marked up SVG's anyway)
+
 = 2.0.0 =
 * Added filter to deduce dimensions (if present) from regular SVG uploads
 
