@@ -4,7 +4,7 @@
  * Plugin Name:       Enable SVG Uploads
  * Plugin URI:        https://github.com/Lewiscowles1986/WordPressSVGPlugin
  * Description:       Enable SVG uploads in Media Library and other file upload fields.
- * Version:           2.0.0
+ * Version:           2.0.2
  * Author:            Lewis Cowles
  * Author URI:        https://www.lewiscowles.co.uk/
  * License:           GPL-3.0
@@ -146,7 +146,7 @@ class SVGSupport {
 	 * if this breaks, php is broken
 	 */
 	protected function custom_css() {
-		echo 'img[src$=".svg"]:not(.emoji) { width: 100% !important; height: auto !important; }';
+		echo 'body:not(.wp-admin) img[src$=".svg"]:not(.emoji) { width: 100% !important; height: auto !important; }';
 	}
 
 	protected function missingOrInvalidSVGDimensions( $data ) {
