@@ -15,7 +15,7 @@ After an upgrade to 2.x it may be necessary to download and re-upload your SVG m
 ### Requirements
 
 * WordPress 4.0 or higher
-* PHP 5.6 or higher
+* PHP 7.0 or higher (EOL versions may work, but you should still run this on latest stable)
 
 ### Updates
 
