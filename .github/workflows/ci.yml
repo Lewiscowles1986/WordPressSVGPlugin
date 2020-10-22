@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main
+
+jobs:
+  tag:
+    name: Composer Install
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Install dependencies
+      uses: php-actions/composer@v2
+      with:
+        dev: yes
+    - name: Run Tests
+      uses: php-actions/phpunit@v9
+      with:
+        configuration: phpunit.xml
+        args: --coverage-text
