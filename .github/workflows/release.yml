@@ -17,10 +17,21 @@ jobs:
     - uses: actions/checkout@master
     - name: Install dependencies
       uses: php-actions/composer@v2
+      id: composer
       with:
         dev: no
     - name: Build package
-      run: cp -ar vendor src/
+      run: cp -ar ./vendor src/
+    - name: List files
+      run: ls -lhaR src
+    - name: Commit Vendor folder (but don't push)
+      run: |
+        git config --global user.email "bot+github@codesign2.co.uk" &&
+        git config --global user.name "CD2 bot on GitHub" &&
+        sed -e '/vendor/ s/^#*/#/' -i .gitignore &&
+        git add .gitignore &&
+        git add -f vendor . &&
+        git commit -m "Vendored dependencies"
     - name: WordPress Plugin Deploy
       uses: Lewiscowles1986/action-wordpress-plugin-deploy@feat/add-custom-workspace
       env:
@@ -28,4 +39,4 @@ jobs:
         SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
         SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
         SLUG: enable-svg-uploads
-        VERSION: 2.0.21
+        VERSION: 2.0.29
