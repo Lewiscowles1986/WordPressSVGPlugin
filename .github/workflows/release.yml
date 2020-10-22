@@ -4,10 +4,6 @@ on:
   push:
     tags:
     - "*"
-  pull_request:
-    branches:
-    - main
-
 
 jobs:
   tag:
@@ -22,8 +18,6 @@ jobs:
         dev: no
     - name: Build package
       run: cp -ar ./vendor src/
-    - name: List files
-      run: ls -lhaR src
     - name: Commit Vendor folder (but don't push)
       run: |
         git config --global user.email "bot+github@codesign2.co.uk" &&
@@ -39,4 +33,3 @@ jobs:
         SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
         SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
         SLUG: enable-svg-uploads
-        VERSION: 2.0.29
