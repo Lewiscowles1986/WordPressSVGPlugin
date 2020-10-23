@@ -16,8 +16,9 @@ After an upgrade to 2.x it may be necessary to download and re-upload your SVG m
 
 ### Requirements
 
-* WordPress 4.0 or higher
-* PHP 7.0 or higher (EOL versions may work, but you should still run this on latest stable)
+* WordPress 4.4 or higher (advised to use latest)
+* PHP 7.1 or higher (EOL versions may work, but you should still run this on latest stable)
+  * PHP 7.3 is the minimum to run the tests due to phpunit 9
 
 ### Updates
 
