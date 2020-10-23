@@ -1,3 +1,5 @@
+![CI](https://github.com/Lewiscowles1986/WordPressSVGPlugin/workflows/CI/badge.svg)
+![Release](https://github.com/Lewiscowles1986/WordPressSVGPlugin/workflows/Release/badge.svg)
 [![Latest Version](https://img.shields.io/github/release/Lewiscowles1986/WordPressSVGPlugin.svg)](https://github.com/Lewiscowles1986/WordPressSVGPlugin/releases)
 [![GitHub License](https://img.shields.io/badge/license-GPLv3-yellow.svg)](https://raw.githubusercontent.com/Lewiscowles1986/WordPressSVGPlugin/master/LICENSE)
 [![Twitter](https://img.shields.io/twitter/url/https/github.com/Lewiscowles1986/WordPressSVGPlugin.svg?style=social)](https://twitter.com/LewisCowles1)
