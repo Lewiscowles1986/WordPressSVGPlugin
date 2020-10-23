@@ -10,7 +10,7 @@ on:
 
 jobs:
   tag:
-    name: CI
+    name: Tests
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
@@ -18,6 +18,15 @@ jobs:
       uses: php-actions/composer@v2
       with:
         dev: yes
+    - name: Lint
+      uses: php-actions/composer@v2
+      with:
+        command: exec
+        args: "'phpcs --extensions=php --colors -n -s .' --verbose"
+        suggest: yes
+        dev: yes
+        progress: yes
+        interaction: yes
     - name: Run Tests
       uses: php-actions/phpunit@v9
       with:

@@ -5,5 +5,6 @@
         <exclude name="Yoast.NamingConventions.NamespaceName"/>
     </rule>
     <exclude-pattern>vendor</exclude-pattern>
+    <exclude-pattern>src/vendor</exclude-pattern>
     <exclude-pattern>tests</exclude-pattern>
 </ruleset>
