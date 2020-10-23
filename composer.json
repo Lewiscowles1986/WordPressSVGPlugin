@@ -48,7 +48,8 @@
   "require-dev": {
     "phpunit/phpunit": "9.*",
     "10up/wp_mock": "*",
-    "antecedent/patchwork": "*"
+    "antecedent/patchwork": "*",
+    "yoast/yoastcs": "^2.0"
   },
   "autoload": {
       "psr-4": { "lewiscowles\\WordPress\\Compat\\FileTypes\\": "src" }
