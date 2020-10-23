@@ -50,7 +50,7 @@ class TestHooks extends \BaseWPMockTestCase
   {
     $pluginInstance = new SVGSupport();
 
-    \WP_Mock::expectActionAdded( 'wp_ajax_adminlc_mce_svg.css', [ $pluginInstance, 'tinyMCE_svg_css' ], 10 );
+    \WP_Mock::expectActionAdded( 'wp_ajax_adminlc_mce_svg.css', [ $pluginInstance, 'tinymce_svg_css' ], 10 );
 
     $pluginInstance->add_svg_upload();
 
@@ -64,7 +64,7 @@ class TestHooks extends \BaseWPMockTestCase
   {
     $pluginInstance = new SVGSupport();
 
-    \WP_Mock::expectFilterAdded( 'image_send_to_editor', [ $pluginInstance, 'remove_dimensions_svg' ], 10, 1 );
+    \WP_Mock::expectFilterAdded( 'image_send_to_editor', [ $pluginInstance, 'remove_incorrect_dimensions_svg' ], 10, 1 );
     \WP_Mock::expectFilterAdded( 'upload_mimes', [ $pluginInstance, 'filter_mimes' ], 10, 1 );
 
     $pluginInstance->add_svg_upload();
