@@ -2,6 +2,7 @@
 /**
  * WordPress SVG Plugin.
  *
+ * @package LewisCowles\Plugin\PHP
  * @license http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3 or higher
  *
  * @wordpress-plugin
@@ -27,7 +28,8 @@ if (version_compare(PHP_VERSION, '7', '<')) {
     <div id="error-page">
         <p>This plugin requires PHP 7 or higher.
             Please contact your hosting provider about upgrading your
-            server software. Your PHP version is <b><?php echo PHP_VERSION; ?></b></p>
+            server software. Your PHP version is
+            <b><?php echo PHP_VERSION; ?></b></p>
     </div>
     <?php
     die();
@@ -36,13 +38,18 @@ if (version_compare(PHP_VERSION, '7', '<')) {
 use function lewiscowles\Utils\FileSystem\Extension\fixExtensionIfNeeded;
 
 /**
+ * AIO Grab-bag of functionality to enable this plugin
  * 
+ * @package LewisCowles\Plugin\PHP\SVGSupport
+ * @license http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3 or higher
  */
 class SVGSupport
 {
 
     /**
+     * Setup Class
      * 
+     * @return void
      */
     function init()
     {
@@ -60,7 +67,9 @@ class SVGSupport
     }
 
     /**
+     * Add Admin Legacy AJAX for CSS & Filters
      * 
+     * @return void
      */
     public function addSvgUpload()
     {
@@ -74,8 +83,12 @@ class SVGSupport
     }
 
     /**
+     * Inline Admin CSS
+     * 
      * @codeCoverageIgnore
      * if this breaks, php is broken
+     * 
+     * @return void
      */
     public function customAdminCss()
     {
@@ -85,7 +98,9 @@ class SVGSupport
     }
 
     /**
+     * Enqueue TinyMCE custom CSS using WordPress filter
      * 
+     * @return void
      */
     public function addEditorStyles()
     {
@@ -93,7 +108,9 @@ class SVGSupport
     }
 
     /**
+     * Augment Theme to ensure that custom logo support is added
      * 
+     * @return void
      */
     public function themePrefixSetup()
     {
@@ -107,8 +124,17 @@ class SVGSupport
     }
 
     /**
+     * Fix the MIME type returned for SVG
+     * 
+     * @param array|null  $data     Incoming MIME data
+     * @param object|null $file     Unused
+     * @param string|null $filename The Filename
+     * @param array       $mimes    Unused
+     * 
      * @codeCoverageIgnore
      * Simple Wrapper for fixExtensionIfNeeded
+     * 
+     * @return array
      */
     public function fixMimeTypeSvg(
         $data=null, $file=null, $filename=null, $mimes=null
@@ -123,7 +149,12 @@ class SVGSupport
     }
 
     /**
+     * Ensure uploaded media contains width and height metadata
      * 
+     * @param array $data An array of medatadata for media
+     * @param int   $id   The Post ID of the upload
+     * 
+     * @return array
      */
     public function ensureSvgMetadata($data, $id)
     {
@@ -148,8 +179,12 @@ class SVGSupport
     //
 
     /**
+     * Legacy AJAX CSS Handler
+     * 
      * @codeCoverageIgnore
      * if this breaks, php is broken
+     * 
+     * @return void
      */
     public function tinyMceSvgCss()
     {
@@ -159,7 +194,11 @@ class SVGSupport
     }
 
     /**
+     * Remove Incorrect Dimensions (height 1, width 1) from HTML output
      * 
+     * @param string $html an HTML document or fragment
+     * 
+     * @return string
      */
     public function removeIncorrectDimensionsSvg($html = '')
     {
@@ -167,7 +206,11 @@ class SVGSupport
     }
 
     /**
+     * Ensure SVG has MIME
      * 
+     * @param array $mimes A List of key-value pairs of file extension & mime-type
+     * 
+     * @return array
      */
     public function filterMimes($mimes = [])
     {
@@ -180,8 +223,14 @@ class SVGSupport
     //
 
     /**
+     * Adds CSS URL to CSV list of URLs
+     * 
+     * @param string $mce_css A Comma-delimited string of urls to CSS files for TinyMCE
+     * 
      * @codeCoverageIgnore
      * if this breaks, wordpress is broken
+     * 
+     * @return string
      */
     public function filterMceCss($mce_css)
     {
@@ -195,8 +244,12 @@ class SVGSupport
     //
 
     /**
+     * Custom CSS applied to backend & TinyMCE
+     * 
      * @codeCoverageIgnore
      * if this breaks, php is broken
+     * 
+     * @return void
      */
     protected function customCss()
     {
@@ -205,7 +258,11 @@ class SVGSupport
     }
 
     /**
+     * Is SVG Data Missing Dimensions or containing invalid dimensions
      * 
+     * @param array|null $data Dimension data (possibly null)
+     * 
+     * @return bool
      */
     protected function missingOrInvalidSVGDimensions($data)
     {
@@ -226,10 +283,18 @@ class SVGSupport
     }
 
     /**
+     * Try to Get Width & Height From a variety of SVG data-points
      * 
+     * @param array      $viewbox       ViewBox Data
+     * @param object     $attr          SVG / XML Object
+     * @param array      $data          Metadata for SVG attachment
+     * @param string     $dimension     Key / Property name. 'width' or 'height'
+     * @param string|int $viewboxOffset ViewBox Offset for value
+     * 
+     * @return void
      */
     protected function fillSVGDimensions(
-        $viewbox, $attr, &$data, $dimension, $viewboxoffset
+        $viewbox, $attr, &$data, $dimension, $viewboxOffset
     ) {
         if (isset($attr->{ $dimension })) {
             $data[ $dimension ] = intval($attr->{ $dimension });
@@ -242,7 +307,7 @@ class SVGSupport
         }
         if ($data[ $dimension ] < 1) {
             $data[ $dimension ] = count($viewbox) == 4 ?
-                intval($viewbox[$viewboxoffset]) : null;
+                intval($viewbox[$viewboxOffset]) : null;
         }
     }
 }
