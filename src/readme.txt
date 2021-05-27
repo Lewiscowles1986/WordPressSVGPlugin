@@ -1,10 +1,10 @@
 === Enable SVG Uploads ===
 Contributors: LewisCowles,hendridm
 Tags: svg,upload,media library,mime
-Requires at least: 4.0
-Tested up to: 5.5.1
+Requires at least: 4.4
+Tested up to: 5.7.2
 Requires PHP: 7.1
-Stable tag: 2.1.2
+Stable tag: 2.1.3
 License: GPL-3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -27,6 +27,9 @@ Download and extract the zip file or clone this repo to your WordPress plugins d
 After an upgrade to 2.x it may be necessary to download and re-upload your SVG media files so that the grid works. This is because we now use simple XML to retrieve the width & height of the SVG.
 
 == Changelog ==
+= 2.1.2 =
+* Confirmation works with 5.7.2
+
 = 2.1.2 =
 * Plugin directory graphics
 
