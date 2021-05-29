@@ -7,7 +7,5 @@ php composer.phar install --dev
 ");
 }
 
-define('ABSPATH', __DIR__ . '/../src');
-
 require_once __DIR__ . '/../src/index.php';
 require_once __DIR__ . '/includes/BaseWPMockTestCase.php';
