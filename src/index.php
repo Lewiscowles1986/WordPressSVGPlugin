@@ -35,10 +35,9 @@ if ( version_compare( PHP_VERSION, '7', '<' ) ) {
 	die();
 }
 
-require_once __DIR__ . '/lib/svgsupport.php';
-
 if ( defined( 'ABSPATH' ) ) {
-	include_once __DIR__ . '/vendor/autoload.php';
+	require_once __DIR__ . '/vendor/autoload.php';
+	require_once __DIR__ . '/lib/svgsupport.php';
 	$svg_support = new lewiscowles\WordPress\Compat\FileTypes\SVGSupport();
 	$svg_support->init();
 }
