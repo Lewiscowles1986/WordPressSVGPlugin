@@ -39,6 +39,6 @@ require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/lib/svgsupport.php';
 
 if ( defined( 'ABSPATH' ) ) {
-	$svg_support = new lewiscowles\WordPress\Compat\FileTypes\SVGSupport();
+	$svg_support = new \lewiscowles\WordPress\Compat\FileTypes\SVGSupport();
 	$svg_support->init();
 }
