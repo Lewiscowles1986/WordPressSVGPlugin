@@ -27,6 +27,8 @@ jobs:
         dev: yes
         progress: yes
         interaction: yes
+    - name: Snapshot vendor
+      run: cp -ar ./vendor src/
     - name: Run Tests
       uses: php-actions/phpunit@v9
       with:
