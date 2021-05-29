@@ -23,10 +23,10 @@
  */
 namespace lewiscowles\Plugins\EnableSVG;
 
-if ( version_compare( PHP_VERSION, '7', '<' ) ) {
+if ( version_compare( PHP_VERSION, '7.1', '<' ) ) {
 	?>
 	<div id="error-page">
-		<p>This plugin requires PHP 7 or higher.
+		<p>This plugin requires PHP 7.1 or higher.
 			Please contact your hosting provider about upgrading your
 			server software. Your PHP version is
 			<b><?php echo PHP_VERSION; ?></b></p>
