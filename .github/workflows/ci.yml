@@ -24,6 +24,7 @@ jobs:
     - name: Install Composer dependencies & cache dependencies
       uses: "ramsey/composer-install@v2"
       with:
+        dependency-versions: "lowest"
         composer-options: "--prefer-dist --no-dev --optimize-autoloader"
         custom-cache-key: "composer-7.1-vendor"
 
@@ -33,6 +34,7 @@ jobs:
     - name: Install Composer dependencies & cache dependencies
       uses: "ramsey/composer-install@v2"
       with:
+        dependency-versions: "lowest"
         composer-options: "--prefer-dist"
         custom-cache-key: "composer-7.1"
 
