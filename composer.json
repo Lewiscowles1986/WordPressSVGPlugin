@@ -40,6 +40,9 @@
     "platform": {
       "php": "7.3.0",
       "ext-xdebug": "2.9.8"
+    },
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
     }
   },
   "require": {
