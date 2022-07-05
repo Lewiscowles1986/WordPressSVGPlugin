@@ -33,7 +33,7 @@ jobs:
       run: composer validate
     
     - name: Run Code Sniffer
-      run: ./vendor/bin/phpcs --extensions=php --colors -n -s
+      run: ./vendor/bin/phpcs --extensions=php --colors -n -s .
 
     # - name: Snapshot vendor
     #   run: cp -ar ./vendor src/
