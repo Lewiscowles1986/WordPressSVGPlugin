@@ -15,9 +15,11 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Install dependencies
-      uses: php-actions/composer@v2
+      uses: php-actions/composer@v6
       with:
         dev: yes
+        php_version: 7.4
+        version: 2.x
     - name: Lint
       uses: php-actions/composer@v6
       with:
@@ -27,6 +29,7 @@ jobs:
         progress: yes
         interaction: yes
         php_version: 7.4
+        version: 2.x
     - name: Snapshot vendor
       run: cp -ar ./vendor src/
     - name: Run Tests
