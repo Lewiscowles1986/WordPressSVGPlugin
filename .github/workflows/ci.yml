@@ -20,23 +20,27 @@ jobs:
         tools: composer
         extensions: 'xdebug'
     - uses: actions/checkout@v2
+    
+    - name: Install Composer dependencies & cache dependencies
+      uses: "ramsey/composer-install@v2"
+      with:
+        composer-options: "--prefer-dist --no-dev"
+        custom-cache-key: "composer-7.4-vendor"
+
+    - name: Snapshot vendor
+      run: cp -ar ./vendor src/
 
     - name: Install Composer dependencies & cache dependencies
       uses: "ramsey/composer-install@v2"
       with:
         composer-options: "--prefer-dist"
         custom-cache-key: "composer-7.4"
-      env:
-        COMPOSER_ROOT_VERSION: dev-${{ github.event.repository.default_branch }}
 
     - name: Validate composer.json and composer.lock
       run: composer validate
     
     - name: Run Code Sniffer
       run: ./vendor/bin/phpcs --extensions=php --colors -n -s .
-
-    - name: Snapshot vendor
-      run: cp -ar ./vendor src/
 
     - name: Run Test Suite
       run: XDEBUG_MODE=coverage ./vendor/bin/phpunit tests --coverage-text
