@@ -44,8 +44,8 @@ jobs:
     - name: Run Code Sniffer
       run: ./vendor/bin/phpcs --extensions=php --colors -n -s .
 
-    - name: PWD & ls
-      run: pwd && ls -lha
+    - name: PHP Version check
+      run: php --version
 
     - name: Run Test Suite
       run: XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-text
