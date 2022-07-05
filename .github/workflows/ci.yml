@@ -19,7 +19,7 @@ jobs:
       with:
         dev: yes
     - name: Lint
-      uses: php-actions/composer@v2
+      uses: php-actions/composer@v6
       with:
         command: exec
         args: "'phpcs --extensions=php --colors -n -s .' --verbose"
@@ -27,6 +27,7 @@ jobs:
         dev: yes
         progress: yes
         interaction: yes
+        php_version: 7.4
     - name: Snapshot vendor
       run: cp -ar ./vendor src/
     - name: Run Tests
