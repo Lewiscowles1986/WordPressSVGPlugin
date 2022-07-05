@@ -16,7 +16,7 @@ jobs:
     - name: Set up PHP environment
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '7.4'
+        php-version: '7.1'
         tools: composer
         extensions: 'xdebug'
     - uses: actions/checkout@v2
@@ -24,8 +24,8 @@ jobs:
     - name: Install Composer dependencies & cache dependencies
       uses: "ramsey/composer-install@v2"
       with:
-        composer-options: "--prefer-dist --no-dev"
-        custom-cache-key: "composer-7.4-vendor"
+        composer-options: "--prefer-dist --no-dev --optimize-autoloader"
+        custom-cache-key: "composer-7.1-vendor"
 
     - name: Snapshot vendor
       run: cp -ar ./vendor src/
@@ -34,7 +34,7 @@ jobs:
       uses: "ramsey/composer-install@v2"
       with:
         composer-options: "--prefer-dist"
-        custom-cache-key: "composer-7.4"
+        custom-cache-key: "composer-7.1"
 
     - name: Validate composer.json and composer.lock
       run: composer validate
