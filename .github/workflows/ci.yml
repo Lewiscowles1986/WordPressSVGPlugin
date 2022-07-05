@@ -21,7 +21,7 @@ jobs:
         extensions: 'xdebug'
     - uses: actions/checkout@v2
     
-    - name: Install Composer dependencies & cache dependencies
+    - name: Install Composer release dependencies & cache dependencies
       uses: "ramsey/composer-install@v2"
       with:
         dependency-versions: "lowest"
@@ -31,7 +31,7 @@ jobs:
     - name: Snapshot vendor
       run: cp -ar ./vendor src/
 
-    - name: Install Composer dependencies & cache dependencies
+    - name: Install Composer dev dependencies & cache dependencies
       uses: "ramsey/composer-install@v2"
       with:
         dependency-versions: "lowest"
