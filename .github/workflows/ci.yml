@@ -23,7 +23,6 @@ jobs:
       with:
         command: exec
         args: "'phpcs --extensions=php --colors -n -s .' --verbose"
-        suggest: yes
         dev: yes
         progress: yes
         interaction: yes
