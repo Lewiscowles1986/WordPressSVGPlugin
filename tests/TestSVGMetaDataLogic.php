@@ -2,7 +2,7 @@
 
 namespace lewiscowles\WordPress\Compat\FileTypes\Tests;
 
-use \lewiscowles\WordPress\Compat\FileTypes\SVGSupport;
+use \lewiscowles\WordPress\Compat\FileTypes\SvgSupport;
 /**
  * Unit Tests for the Main Plugin File
  */
@@ -26,7 +26,7 @@ class TestSVGMetaDataLogic extends \BaseWPMockTestCase
           return __DIR__ . "/fixtures/{$id}.svg";
         });
 
-    $pluginInstance = new SVGSupport();
+    $pluginInstance = new SvgSupport();
     $result = $pluginInstance->ensure_svg_metadata($data, $post_id);
 
     $this->assertEquals($dimensions['width'], $result['width']);

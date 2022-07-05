@@ -2,7 +2,7 @@
 
 namespace lewiscowles\WordPress\Compat\FileTypes\Tests;
 
-use \lewiscowles\WordPress\Compat\FileTypes\SVGSupport;
+use \lewiscowles\WordPress\Compat\FileTypes\SvgSupport;
 /**
  * Unit Tests for the Main Plugin File
  */
@@ -14,7 +14,7 @@ class TestThemeLogic extends \BaseWPMockTestCase
    */
   public function theme_with_custom_logo_flex_works($theme_custom_logo_support)
   {
-    $pluginInstance = new SVGSupport();
+    $pluginInstance = new SvgSupport();
 
     /* cheeky way of raising exception if the function does not set the
        flex-{width,height} of custom-logo to true in the case it is set */
