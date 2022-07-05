@@ -7,10 +7,10 @@ use function lewiscowles\Utils\FileSystem\Extension\fixExtensionIfNeeded;
 /**
  * AIO Grab-bag of functionality to enable this plugin
  *
- * @package LewisCowles\Plugin\PHP\SVGSupport
+ * @package LewisCowles\Plugin\PHP\SvgSupport
  * @license http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3 or higher
  */
-class SVGSupport {
+class SvgSupport {
 
 	/**
 	 * Setup Class
