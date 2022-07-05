@@ -13,28 +13,30 @@ jobs:
     name: Tests
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: Install dependencies
-      uses: php-actions/composer@v3
+    - name: Set up PHP environment
+      uses: shivammathur/setup-php@v2
       with:
-        dev: yes
-        php_version: 7.4
-        version: 2.x
-    - name: Lint
-      uses: php-actions/composer@v3
+        php-version: '7.4'
+        tools: composer
+        extensions: 'xdebug'
+    - uses: actions/checkout@v2
+
+    - name: Install Composer dependencies & cache dependencies
+      uses: "ramsey/composer-install@v2"
       with:
-        command: exec
-        args: "'phpcs --extensions=php --colors -n -s .' --verbose"
-        dev: yes
-        progress: yes
-        interaction: yes
-        php_version: 7.4
-        version: 2.x
+        composer-options: "--prefer-dist"
+        custom-cache-key: "composer-7.4"
+      env:
+        COMPOSER_ROOT_VERSION: dev-${{ github.event.repository.default_branch }}
+
+    - name: Validate composer.json and composer.lock
+      run: composer validate
+
     - name: Snapshot vendor
       run: cp -ar ./vendor src/
-    - name: Run Tests
-      uses: php-actions/phpunit@v9
-      with:
-        configuration: phpunit.xml
-        php_version: 7.4
-        args: --coverage-text
+
+    - name: Run Test Suite
+      run: XDEBUG_MODE=coverage ./vendor/bin/phpunit tests --coverage-text
+    
+    - name: Run Code Sniffer
+      run: ./vendor/bin/phpcs --extensions=php --colors -n -s --verbose
