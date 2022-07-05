@@ -15,13 +15,13 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Install dependencies
-      uses: php-actions/composer@v6
+      uses: php-actions/composer@v3
       with:
         dev: yes
         php_version: 7.4
         version: 2.x
     - name: Lint
-      uses: php-actions/composer@v6
+      uses: php-actions/composer@v3
       with:
         command: exec
         args: "'phpcs --extensions=php --colors -n -s .' --verbose"
