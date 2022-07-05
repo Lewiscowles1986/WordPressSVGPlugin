@@ -31,12 +31,12 @@ jobs:
 
     - name: Validate composer.json and composer.lock
       run: composer validate
-
-    - name: Snapshot vendor
-      run: cp -ar ./vendor src/
-
-    - name: Run Test Suite
-      run: XDEBUG_MODE=coverage ./vendor/bin/phpunit tests --coverage-text
     
     - name: Run Code Sniffer
       run: ./vendor/bin/phpcs --extensions=php --colors -n -s --verbose
+
+    # - name: Snapshot vendor
+    #   run: cp -ar ./vendor src/
+
+    - name: Run Test Suite
+      run: XDEBUG_MODE=coverage ./vendor/bin/phpunit tests --coverage-text
